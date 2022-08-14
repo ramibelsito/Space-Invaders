@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>main.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs adwaita-icon-theme`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_acodec-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_audio-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_color-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_dialog-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_font-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_image-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_main-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_memfile-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_physfs-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_primitives-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_ttf-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro_video-5`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs applewmproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs atk`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs atk-bridge-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs atspi-2`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs avahi-client`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs avahi-compat-libdns_sd`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs bash-completion`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs bigreqsproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs blkid`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-fc`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-ft`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-gobject`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-pdf`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-png`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-ps`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-script`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-svg`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-tee`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-xcb`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-xcb-shm`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-xlib`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs cairo-xlib-xrender`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs compositeproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs damageproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs datrie-0.2`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs dbus-1`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs dmxproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs dpmsproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs dri2proto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs dri3proto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs egl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs epoxy`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs expat`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs fixesproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs flac`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs fontconfig`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs fontsproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs fontutil`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs freetype2`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs fribidi`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gbm`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gcalc-2`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gci-1`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gdk-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gdk-broadway-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gdk-pixbuf-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gdk-wayland-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gdk-x11-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs geoclue-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gio-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gio-unix-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs glesv1_cm`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs glesv2`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs glib-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs glproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs glu`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs glx`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gmodule-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gmodule-export-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gmodule-no-export-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gnome-icon-theme`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gobject-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs graphite2`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs grilo-plugins-0.3`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-allocators-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-app-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-audio-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-base-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-check-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-controller-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-fft-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-gl-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-gl-egl-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-gl-prototypes-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-gl-wayland-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-gl-x11-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-net-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-pbutils-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-plugins-base-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-riff-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-rtp-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-rtsp-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-sdp-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-tag-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gstreamer-video-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gthread-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gtk+-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gtk+-broadway-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gtk+-unix-print-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gtk+-wayland-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gtk+-x11-3.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gudev-1.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs harfbuzz`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs harfbuzz-gobject`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs harfbuzz-icu`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs ibus-table`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs ice`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs icu-i18n`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs icu-io`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs icu-uc`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs inputproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs iso-codes`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs kbproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libbrotlicommon`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libbrotlidec`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libbrotlienc`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libcrypt`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libcrypto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libdeflate`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libdrm`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libdrm_amdgpu`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libdrm_intel`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libdrm_nouveau`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libdrm_radeon`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libdw`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libelf`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libffi`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libgdiplus`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libglvnd`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libjpeg`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs liblzma`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libnsl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcre`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcre16`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcre2-16`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcre2-32`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcre2-8`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcre2-posix`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcre32`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcrecpp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpcreposix`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libplist`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libplist-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpng`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpng16`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpulse`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpulse-mainloop-glib`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libpulse-simple`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libselinux`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libsepol`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libssl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libthai`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libtiff-4`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libtirpc`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libudev`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libunwind`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libunwind-coredump`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libunwind-generic`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libunwind-ptrace`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libwebp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libwebpdemux`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libwebpmux`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libxcrypt`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs mount`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs ogg`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs openal`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs opengl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs openssl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs opus`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs orc-0.4`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs orc-test-0.4`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pango`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pangocairo`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pangofc`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pangoft2`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pangoot`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pangoxft`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pciaccess`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs physfs`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pixman-1`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs poppler-data`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs presentproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs pthread-stubs`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs randrproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs recordproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs renderproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs resourceproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs scrnsaverproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs shared-mime-info`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs sm`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs systemd`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs theora`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs theoradec`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs theoraenc`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs udev`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs uuid`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs videoproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs vorbis`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs vorbisenc`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs vorbisfile`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs wayland-client`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs wayland-cursor`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs wayland-egl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs wayland-protocols`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs wayland-scanner`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs wayland-server`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs x11`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs x11-xcb`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xau`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xbitmaps`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xcb`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xcb-render`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xcb-shm`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xcmiscproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xcomposite`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xcursor`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xdamage`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xdmcp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xext`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xextproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xf86bigfontproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xf86dgaproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xf86driproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xf86vidmodeproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xfixes`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xft`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xi`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xinerama`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xineramaproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xkbcommon`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xkbcomp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xkeyboard-config`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xorg-sgml-doctools`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xorg-wacom`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xpm`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xproto`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xrandr`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xrender`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xtrans`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs xtst`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs yelp-xsl`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs allegro-5`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
