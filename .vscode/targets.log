@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Aug 23 20:44:51 2022
+# Make data base, printed on Wed Aug 24 19:27:01 2022
 
 # Variables
 
@@ -61,7 +61,7 @@ VSCODE_CODE_CACHE_PATH = /home/jiborjas/.config/Code/CachedData/e4503b30fc78200f
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.Q0JRR1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.JAVHR1
 # default
 .LOADED := 
 # default
@@ -71,7 +71,7 @@ MAKEFLAGS = pqrR
 # makefile
 CURDIR := /home/jiborjas/Documents/Space Invaders/Space-Invaders
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # automatic
@@ -97,7 +97,7 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 4418
+VSCODE_PID = 7915
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -105,7 +105,7 @@ XDG_SESSION_TYPE = wayland
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
-SESSION_MANAGER = local/jiborjas-VirtualBox:@/tmp/.ICE-unix/1984,unix/jiborjas-VirtualBox:/tmp/.ICE-unix/1984
+SESSION_MANAGER = local/jiborjas-VirtualBox:@/tmp/.ICE-unix/1635,unix/jiborjas-VirtualBox:/tmp/.ICE-unix/1635
 # automatic
 *F = $(notdir $*)
 # environment
@@ -153,7 +153,7 @@ LC_TIME = es_AR.UTF-8
 # environment
 SNAP = /snap/code/105
 # environment
-INVOCATION_ID = 9ad9c9496ec74e2fb2c99a72fea72e86
+INVOCATION_ID = b0f5c3c4ca9e42cda614d8fdee0ee945
 # environment
 SNAP_REVISION = 105
 # environment
@@ -189,7 +189,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2043
+SYSTEMD_EXEC_PID = 1681
 # environment
 DISPLAY = :0
 # environment
@@ -205,11 +205,11 @@ SNAP_DATA = /var/snap/code/105
 # environment
 SNAP_CONTEXT = JHocA82mxBxJ-T7c3XyqJpyEKnGwAye2wQvZOJDQ4PHs18mbDb_4
 # environment
-MANAGERPID = 1839
+MANAGERPID = 1509
 # environment
 LC_MEASUREMENT = es_AR.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 4377
+GIO_LAUNCHED_DESKTOP_FILE_PID = 7876
 # environment
 _ = /snap/code/105/usr/share/code/code
 # environment
@@ -219,7 +219,7 @@ XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/jiborjas/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:26825
+JOURNAL_STREAM = 8:24163
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -273,9 +273,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2051, inode 3018991): 8 files, no impossibilities.
+# . (device 2051, inode 3018991): 9 files, no impossibilities.
 
-# 8 files, no impossibilities in 1 directories.
+# 9 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -326,12 +326,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 16 / storage = 161 B / avg = 10 B
-# current buf: size = 8162 B / used = 161 B / count = 16 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 17 / storage = 163 B / avg = 9 B
+# current buf: size = 8162 B / used = 163 B / count = 17 / avg = 9 B
 
-# strcache performance: lookups = 19 / hit rate = 15%
+# strcache performance: lookups = 20 / hit rate = 15%
 # hash-table stats:
-# Load=16/8192=0%, Rehash=0, Collisions=0/19=0%
-# Finished Make data base on Tue Aug 23 20:44:51 2022
+# Load=17/8192=0%, Rehash=0, Collisions=0/20=0%
+# Finished Make data base on Wed Aug 24 19:27:01 2022
 
  
