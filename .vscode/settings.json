@@ -1,3 +1,8 @@
 {
-        "makefile.extensionOutputFolder": "./.vscode"
+        "makefile.extensionOutputFolder": "./.vscode",
+        "files.associations": {
+                "*.msa": "m6800-as0",
+                "allegro_image.h": "c",
+                "allegro.h": "c"
+        }
 }

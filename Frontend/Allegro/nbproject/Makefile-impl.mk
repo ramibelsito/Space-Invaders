@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Space_Invaders
+PROJECTNAME=Allegro
 
 # Active Configuration
 DEFAULTCONF=Debug

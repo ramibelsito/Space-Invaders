@@ -50,3 +50,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/Frontend/Allegro/Allegro_ejemplos_cátedra/AllegroEx1Display/build/
+/Frontend/Allegro/build/

@@ -4,10 +4,25 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 
+#include "happy_soundtrack.h"
+
 #define D_HEIGHT 1080
 #define D_WIDTH 1920
 int main(void)
 {
+    //Buenas, soy juani agregando un llamado a la función al_sounds para ver si rompí todo o no
+    float velDeReprod = 1.0 , volumen = 10;	//Clases grabadas de perotti be like
+    
+
+    if (al_sound("audio.wav" , volumen , velDeReprod))
+    {
+        printf ("Por lo tanto, no se ha reproducido el audio solicitado.\n");
+        return -1;
+    }
+    /*La idea es que después los audios estén en su respectiva carpeta en el backend
+    pero esta vez metí el audio de muestra acá nomás para saber si funcionaba*/
+
+
     ALLEGRO_DISPLAY * display = NULL;
     if (!al_init()) 
     {
@@ -38,5 +53,3 @@ int main(void)
     al_destroy_bitmap(CrownButton);
     return 0;
 }
-
-//Hola soy juani haciendo un cambio random para ver si me deja hacer un commit XD
