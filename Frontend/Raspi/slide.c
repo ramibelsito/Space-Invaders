@@ -1,8 +1,56 @@
-#include <stdio.h>
+
 #include "slide.h"
 
-#define MAY_MIN(c)  (((c) >= 'A' && (c) <= 'Z') ? (c) - 'A' + 'a' : (c))
+/*******************************************************************************
+ * ROM CONST VARIABLES WITH GLOBAL SCOPE
+ ******************************************************************************/
+const int  matA [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1, [4][8] = 1, 
+                                               [5][6] = 1,             [5][8] = 1,
+                                               [6][6] = 1, [6][7] = 1, [6][8] = 1,
+                                               [7][6] = 1,             [7][8] = 1,
+                                               [8][6] = 1,             [8][8] = 1};
 
+const int  matB [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1,  
+                                               [5][6] = 1,             [5][8] = 1,
+                                               [6][6] = 1, [6][7] = 1, 
+                                               [7][6] = 1,             [7][8] = 1,
+                                               [8][6] = 1, [8][6] = 1, [8][8] = 1};
+
+const int  matC [MAX_ARR_X][MAX_ARR_Y] = {            [4][7] = 1, [4][8] = 1, 
+                                               [5][6] = 1,             
+                                               [6][6] = 1,            
+                                               [7][6] = 1,             
+                                                           [8][7] = 1, [8][8] = 1}; 
+
+const int  matD [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1,
+                                               [5][6] = 1,             [5][8] = 1,
+                                               [6][6] = 1,             [6][8] = 1, 
+                                               [7][6] = 1,             [7][8] = 1,             
+                                               [8][6] = 1, [8][7] = 1};  
+                                               
+                                                                                                        
+
+const int  matL [MAX_ARR_X][MAX_ARR_Y] = {     [4][6] = 1,  
+                                               [5][6] = 1,             
+                                               [6][6] = 1, 
+                                               [7][6] = 1,             
+                                               [8][6] = 1,  [8][7] = 1, [8][8] = 1};   
+
+
+
+
+
+const int  matP [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1, [4][8] = 1, 
+                                               [5][6] = 1,             [5][8] = 1,
+                                               [6][6] = 1, [6][7] = 1, [6][8] = 1,
+                                               [7][6] = 1,             
+                                               [8][6] = 1}; 
+
+const int  matY [MAX_ARR_X][MAX_ARR_Y] = { 
+                                               [5][6] = 1,             [5][8] = 1,
+                                                           [6][7] = 1, [6][8] = 1,
+                                                           [7][7] = 1,             
+                                               [8][6] = 1};
 const int * detectLetter (char); //Util para la funcion que hace el deslizamiento. Mi idea (por ahora) es asignar una matriz a cada letra. 
                             //Entonces de alguna manera (imagino con un for jugando con los indices) formar frases.
 
@@ -11,32 +59,6 @@ const int * detectLetter (char); //Util para la funcion que hace el deslizamient
 
 //Para las imagenes de play, settings, etc. definimos que se deslice hasta que quede centrado.
 
-
-int main (void)//Main de testeo.
-{
-    int i,j;
-    for (i = 0; i < MAX_ARR_X; i++)
-    {
-        for (j = 0; j < MAX_ARR_Y; j++)
-        {
-            printf("%d ", referenceMat[i][j]);
-        }
-        printf("\n");
-    }
-    phraseSlide ("play", 0);
-    
-    //printf("\n"); printf("\n"); printf("\n");
-
-    /*for (i = 0; i < MAX_ARR_X; i++)
-    {
-        for (j = 0; j < MAX_ARR_Y; j++)
-        {
-            printf("%d ", referenceMat[i][j]);
-        }
-        printf("\n");
-    }*/
-    return 0;
-}
 
 const int * detectLetter (char letter)
 {
@@ -63,6 +85,11 @@ const int * detectLetter (char letter)
 		    return &matY[0][0]; //Si querria letra A, me devuelve puntero a matriz
 		    break;
 		}
+        case '\0':
+        {
+            printf("Terminador\n");
+            return 0;
+        }
 
 		default:
 		{
@@ -73,12 +100,13 @@ const int * detectLetter (char letter)
     }
 }
 
-void singleSlide (void)
+void singleSlide (unsigned int altura)
 {
-    int i, j, columnas, filas;
+    int columnas, filas;
+    
     for(columnas = 0; columnas < MAX_ARR_X; columnas++)//Deslizo la matriz actual hacia la izquierda.
     {
-        for (filas = 0; filas < MAX_ARR_Y ; filas++)//menos para no pasarme de matriz. Y en la ultima columna pegamos lo q queremos.
+        for (filas = altura; filas < MAX_ARR_Y ; filas++)//menos para no pasarme de matriz. Y en la ultima columna pegamos lo q queremos.
         {
             if (columnas == 15)
             {
@@ -92,24 +120,41 @@ void singleSlide (void)
     }
 }
 
-void letterSlide (char letra, unsigned int altura)
+int letterSlide (char letra, unsigned int altura, unsigned int columna)
 {
-    int filas, columnas, j;
+    int filas, j;
     const int * letterMat = detectLetter(letra);// Asigno la matriz de la letra a deslizar
-
-    for(j = LETTER_START; j < MAX_WIDTH_LET + LETTER_START; j++)// Que no sobrepase el ancho.
+    if (columna > MAX_WIDTH_LET)
     {
+        printf ("ERROR: Te excediste con la columna.\n");
+        return -1;
+    }
+    else
+    {
+        j = LETTER_START + columna;// Le sumo la constante pq defini las matrices en cierta columna.
         for (filas = altura; filas < MAX_ARR_Y; filas++) //Agrego la primera parte de la letra al final de la columna, a la altura definida.
         {
-            
-            referenceMat[filas][15] = *(letterMat + filas*MAX_ARR_Y + j);
-            
+            referenceMat[filas][15] = *(letterMat + (filas+4)*MAX_ARR_Y + j);    
         }
-        singleSlide(); //Luego de completar una columna de la letra, deslizo todo para luego escribir la siguiente.
-    }    
+        return 0;
+    }
 }
 
-void phraseSlide (char string[], unsigned int altura)
+/*void phraseSlide (char string[], unsigned int altura)
+{
+    int i,j;
+    for ( i = 0; string[i] != '\0'; i++)
+    {
+        for(j = 0; j < MAX_WIDTH_LET; j++)
+        {
+            letterSlide(string[i], altura, j);//Copio j-esima columna de la matriz de la letra en la matriz de referencia.
+            singleSlide(altura);//Deslizo hacia izquierda para continuar asignando.
+        }
+        singleSlide(altura);
+    }
+}*/
+
+/*void phraseSlide (char string[], unsigned int altura)
 {
    int i; //Contadores
 
@@ -124,4 +169,6 @@ void phraseSlide (char string[], unsigned int altura)
    	{
    		singleSlide();
    	}
-}
+}*/
+
+

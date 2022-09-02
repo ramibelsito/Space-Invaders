@@ -10,7 +10,7 @@
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
-
+#include <stdio.h>
 
 
 /*******************************************************************************
@@ -19,56 +19,10 @@
 #define MAX_ARR_X 16
 #define MAX_ARR_Y 16
 #define MAX_HIGHT_LET 5
-#define MAX_WIDTH_LET 4
+#define MAX_WIDTH_LET 3
 #define LETTER_START 6
-
-const int const matA [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1, [4][8] = 1, 
-                                               [5][6] = 1,             [5][8] = 1,
-                                               [6][6] = 1, [6][7] = 1, [6][8] = 1,
-                                               [7][6] = 1,             [7][8] = 1,
-                                               [8][6] = 1,             [8][8] = 1};
-
-const int const matB [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1,  
-                                               [5][6] = 1,             [5][8] = 1,
-                                               [6][6] = 1, [6][7] = 1, 
-                                               [7][6] = 1,             [7][8] = 1,
-                                               [8][6] = 1, [8][6] = 1, [8][8] = 1};
-
-const int const matC [MAX_ARR_X][MAX_ARR_Y] = {            [4][7] = 1, [4][8] = 1, 
-                                               [5][6] = 1,             
-                                               [6][6] = 1,            
-                                               [7][6] = 1,             
-                                                           [8][7] = 1, [8][8] = 1}; 
-
-const int const matD [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1,
-                                               [5][6] = 1,             [5][8] = 1,
-                                               [6][6] = 1,             [6][8] = 1, 
-                                               [7][6] = 1,             [7][8] = 1,             
-                                               [8][6] = 1, [8][7] = 1};  
-                                               
-                                                                                                        
-
-const int const matL [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1,  
-                                               [5][6] = 1,             
-                                               [6][6] = 1, 
-                                               [7][6] = 1,             
-                                               [8][6] = 1,  [8][7] = 1, [8][8] = 1};   
-
-
-
-
-
-const int const matP [MAX_ARR_X][MAX_ARR_Y] = {[4][6] = 1, [4][7] = 1, [4][8] = 1, 
-                                               [5][6] = 1,             [5][8] = 1,
-                                               [6][6] = 1, [6][7] = 1, [6][8] = 1,
-                                               [7][6] = 1,             
-                                               [8][6] = 1}; 
-
-const int const matY [MAX_ARR_X][MAX_ARR_Y] = { 
-                                               [5][6] = 1,             [5][8] = 1,
-                                                           [6][7] = 1, [6][8] = 1,
-                                                           [7][7] = 1,             
-                                               [8][6] = 1};                                                                                       
+#define MAY_MIN(c)  (((c) >= 'A' && (c) <= 'Z') ? (c) - 'A' + 'a' : (c))
+                                                                                       
 
 /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
@@ -80,6 +34,8 @@ const int const matY [MAX_ARR_X][MAX_ARR_Y] = {
  * VARIABLE PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
 
+
+
 int referenceMat [MAX_ARR_X][MAX_ARR_Y]; /*Global para que lo vean en todos lados. Pues todas las funciones trabajan sobre esta.
                                             Para su uso en allegro o raspi, se copia lo q le paso a esta matriz*/
 
@@ -90,31 +46,24 @@ int referenceMat [MAX_ARR_X][MAX_ARR_Y]; /*Global para que lo vean en todos lado
 
 /**
  * @brief TODO: "desliza" la matriz de referencia en una posicion hacia la izquierda.
- * param param1 
+ * @param param1 altura desde la cual desliza todo. Osea, 0 desde ariba de todo, 15 solo la ultima fila.
  * param param2 
  * @return nada.
 */
-void singleSlide (void);
+void singleSlide (unsigned int altura);// por ahora solo altura, desp le agrego el "piso" asi fijamos la franja que queramos deslizar.
 
 /**
- * @brief TODO: Asigna matriz de letra a deslizar y desliza hhasta que aparezca completamente en pantalla.
+ * @brief TODO: Asigna matriz de letra a deslizar y desliza la columna (de 0 a 3) a meter en el "ciclo" de deslizamiento.
  * @param param1 letra a deslizar
  * @param param2 altura de aparicion de la letra
- * @return nada.
+ * @return -1 si hubo un error (sea pasar mal los parametros o interno).
 */
+int letterSlide (char letra, unsigned int altura, unsigned int columna);
 
-void letterSlide (char, unsigned int);
 
-/**
- * @brief TODO: Utilizando las funciones anteriores, deslia la frase ingresada infinitamente
- * @param param1 frase a deslizar
- * @param param2 altura de aparicion de la frase
- * @return nada.
-*/
 
-void phraseSlide (char string[], unsigned int);
 
 /*******************************************************************************
  ******************************************************************************/
 
-#endif // SLIDE_H_
+#endif // SLIDE_H
