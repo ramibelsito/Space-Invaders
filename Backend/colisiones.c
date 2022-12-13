@@ -12,84 +12,42 @@ Nos falta que un thread actualice la info de las barreras. A lo mejor lo puedo m
 */
 
 //posicion[2] = {0,0} y dibujo = NULL significa que está DESACTIVADO
-#include <stdio.h>
 
-#define ALTURA 16	//Esto va a variar dependiendo del display (es para ver si la bala chocó contra el "piso")
-
-typedef bool int; 
-
-typedef struct bala
-{
-	float posicion[2];	//Coordenadas en el display
-	int velocidad;		//Rapidez de la bala
-	int direccion;		//Es la dirección en la que se desplaza, no la dirección de memoria.
-	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
-	char colisiones;	//Acá informamos cuál fue la última colisión (lo revisamos si está inactiva)
-} bala_t;
-
-typedef struct alien
-{
-	float posicion[2];	//Coordenadas en el display
-	int vida;			//Cantidad de golpes que resiste
-	int velocidad;		//Algunos aliens se desplazan más rápido que otros
-	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
-	int hitbox;			//Tamaño del objeto (tener en cuenta para calcular las colisiones).
-} alien_t;
-
-typedef struct barrera
-{
-	float posicion[2];	//Coordenadas en el display
-	int vida;			//Cantidad de golpes que resiste
-	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
-	int hitbox;			//Tamaño del objeto (tener en cuenta para calcular las colisiones).
-	void* cadena;		//Indica la posición de el siguiente "pedazo" que pertenece a la misma barrera. ***
-} barrera_t;
-/*
-***	Por ejemplo, las barreras podrían estar compuestas por X cantidad de espacios. El "truco" es que no limitamos
-	el tamaño de la barrera, sino todas las barreras del juego tendrían que tener el mismo hitbox.
-	Imaginemos que de un nivel a otro queremos que las barreras se compongan de, digamos, 3 barreras "standard". 
-	Para no hacer un embrollo con el valor de hitbox, podemos mantener el hitbox y armar una cadena de barreras
-	para que se comporten como si fueran una sola. Entonces, el eslabón dos apunta al tres, el tres al uno y el 
-	uno al 2 (en la variable "cadena"). Imaginemos que al eslabón 3 le pegan un tiro. Como son una misma barrera,
-	el tiro debería bajarle la vida a toda la cadena, entonces miramos la variable "cadena". Si dicha variable es
-	distinta de NULL, agarramos y copiamos la vida (y el dibujo si es que tenemos un dibujo distinto en función
-	de la vida de la barrera) del eslabón 3 al 1 (porque en este caso, el 3 sería el último). Después vemos a quién
-	apunta el 1 (apuntará al 2) y repetimos el proceso. 
-	Llegará un punto en el que vamos a haber recorrido toda la cadena, habiendo así actualizado la vida de la barrera
-	en su totalidad. La pregunta es, ¿cómo nos damos cuenta? Bueno, durante el proceso de actualizar la vida de la 
-	barrera, notaremos que llegará un punto en el que la información que supuestamente debemos actualizar, ya está 
-	actualizada. Es decir, si yo vengo saltando de eslabón en eslabón bajando la vida de 5 a 4 y me topo con que 
-	la vida del siguiente eslabón ya no es 5, sino 4, significa que ya actualicé todos los eslabones.
-	Así es como determinamos cuándo salir del bucle.
-	anashei
-*/
-/*es posible que haya pensado todo eso al pedo porque se resuelve súper fácil de otra manera? Sí.
-Estoy súper ilusionado con mi idea? También. Elijo creer... */
-
-//Esta es la estructura de datos que devuelve como parámetro la función "check bala"
-typedef struct colsiones
-{
-
-} colisiones_t;
-
+#include "colisiones.h"
 
 /*Todavía no tengo muy claro cómo meter esto en un thread así que primero voy a centrarme en hacer 
 que funcione la lógica de lo que quiero hacer y después lo voy a meter en un thread.*/
 
+
+/*TENGO UNA IDEA
+Voy a hacer un arreglo con los punteros más importantes. 
+Tipo, un arreglo que contenga el puntero al arreglo de balas, el puntero al arreglo
+de aliens, el puntero al arreglo de barreras, etc. Esto sería útil para no estar
+pasándole trescientas mil cosas a cada función todo el tiempo. Por ahora voy a tratar
+de evitarlo igual, para no hacer tanto mamarracho, pero me lo anoto porque puede
+llegar a ser útil.
+*/
 int main (void)	//main de testeo
 {
+	//OBS: Si hay n aliens, hay n+1 balas. Una para cada alien más otra para el jugador.
+	//Recordar que cada alien y cada jugador no puede tener más de una bala activa simultáneamente.
+	alien_t aliens[n];
+	bala_t balas[n+1];
+	barrera_t barreras[m];
+
 	check_bala();
+
+	return 0;
 }
 
 //hay n cantidad de aliens, por ende, n+1 cantidad de balas (tanto activas como inactivas)
 
-void check_bala (const bala_t* bala, int n /*, barrera_t* barrera, int b*/)
-{	
-	//static colisiones_t estado [n];
+void check_bala (const bala_t* bala, int n /*, barrera_t* barrera, int b */)
+{
 	//Recordar que la bala n+1 tiene índice n en el arreglo (la primera tiene índice 0, no 1)
 	for  ( int i = 0 ; i < n+1 ; i++ )
 	{
-		if ((bala [i]).dibujo != NULL)
+		if ( (bala [i]).dibujo != NULL )
 		{
 			check_colisiones(bala,i);
 		}
@@ -103,29 +61,55 @@ void check_bala (const bala_t* bala, int n /*, barrera_t* barrera, int b*/)
 void check_colisiones(const bala_t* bala, int i)
 {
 	//Esto ya lo chequea pipe pero #programaciónALaDefensiva
-	switch ( (bala[i]).posicion[1] )
-	{	//Chequeo su coordenada Y
-		case ALTURA: desactivar_bala(bala, i, 'M'); return;	//Si se terminó el mapa, destruyo la bala
-		case 0: desactivar_bala(bala, i, 'M'); return;		//La M indica que impactó contra el final del mapa
+	switch ( (bala[i]).posicion[1] )	//Chequeo su coordenada Y
+	{	
+		//La M de MAPA indica que impactó contra el final del espacio jugable.
+		case ALTURA: desactivar_bala(bala, i, MAPA, 1); return;	//La colisión "mapa 1" es chocar contra el piso
+		case 0: desactivar_bala(bala, i, MAPA, 0); return;		//La colisión "mapa 0" es chocar contra el techo
 		default: break;
-	}
+	}	//Lo hice así para respetar la convención de que nuestro display tiene el eje Y apuntando para abajo
 
-	
 
+	//Chequeo si colisionó contra un alien (ya terminé el diagrama de flujo)
+	for 
+
+	//Chequeo si colisionó contra una barrera 
+	/*Acá podría tener en cuenta lo de encadenar barreras para hacer una barrera compuesta sin necesidad
+	de hacer un struct nuevo para cada tipo de barrera (y así cambiarles el hitbox) 
+	Eso le daría mucha versatilidad al código, más allá de si al final lo usamos o no*/
+
+	//Chequeo si colisionó contra la nave nodriza
+	/*Tengo que chequear el código de los chicos pero dudo que la nave nodriza pueda meterse dentro del
+	arreglo de aliens porque tendría muchas excepciones y sería más fácil darle su propia identidad */
+
+	//Por último, chequeo si colisionó contra otro proyectil.
+	/*En esta parte del código, dicho análisis es bastante similar al resto, la parte rara va a estar 
+	a la hora de desactivarlas porque tengo que desactivar ambas. Podría hacer que la función 
+	"desactivar bala" se llame a sí misma cuando le aviso que choqué contra otra bala, o sino podría
+	llamarla yo desde acá dos veces, una para cada bala. Creo que es básicamente lo mismo. Habrá que
+	ver cuál opción es la más general o versátil*/
+
+	/*Recordar que no solo tengo que desactivar la bala si impacta contra algo, sino que también 
+	tengo que bajarle la vida al objeto contra el que haya impactado para eventualmente también
+	desactivarlo y/o sumarle puntos al jugador*/
 
 }
 
 
 //Dibujo a NULL, coordenada (0,0) y actualizar el campo "colisiones"
-void desactivar_bala (const bala_t* bala, int i, char impacto)
+//La j es el índice del objeto contra el que chocó
+//La i es el índice de la bala o proyectil que estamos analizando (le digo proyectil así reservo la "b" para "barrera")
+void desactivar_bala (const bala_t* bala, int i, char impacto, int j)
 {
-	switch impacto
+	//El campo
+	switch (impacto)
 	{
-		case 'M': (bala[i]).colisiones ='M'; break;		//Impactó contra el final del Mapa
-		case 'A': (bala[i]).colisiones ='A'; break;		//Impactó contra un Alien
-		case 'B': (bala[i]).colisiones ='B'; break;		//Impactó contra una Barrera
-		case 'P': (bala[i]).colisiones ='P'; break;		//Impactó contra otro Proyectil
-		case 'J': (bala[i]).colisiones ='J'; break;		//Impactó contra otra el Jugador
+		case 'M': (bala[i]).colisiones = OBJETO(MAPA,j);		break;	//Impactó contra el final del Mapa
+		case 'A': (bala[i]).colisiones = OBJETO(ALIEN,j);		break;	//Impactó contra un Alien
+		case 'B': (bala[i]).colisiones = OBJETO(BARRERA,j);		break;	//Impactó contra una Barrera
+		case 'J': (bala[i]).colisiones = OBJETO(JUGADOR,j);		break;	//Impactó contra otra el Jugador
+		case 'P': (bala[i]).colisiones = OBJETO(PROYECTIL,j);	//La bala i impactó contra la jota y viceversa
+				  (bala[j]).colisiones = OBJETO(PROYECTIL,i);	break;	//Impactó contra otro Proyectil
 		default: break;
 	}
 
@@ -133,7 +117,7 @@ void desactivar_bala (const bala_t* bala, int i, char impacto)
 	(bala[i]).posicion[0] = 0;
 	(bala[i]).posicion[1] = 0;
 
-	if ((bala[i]).colisiones ='P')
+	if ( *(bala[i]).colisiones = OBJETO(PROYECTIL,j) )
 	{
 		//desactivar también la otra bala (tengo que autorreferenciar a la función)
 	}
