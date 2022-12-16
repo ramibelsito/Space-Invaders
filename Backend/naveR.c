@@ -121,7 +121,7 @@ const int  matNAVE [MAX_ARR_X][MAX_ARR_Y] = {
                                                             [0][1] = 1,
                                                 [1][0] = 1, [1][1] = 1, [1][2] = 1};
 
-void * updateBullets ()//Actualizacion de valas/
+void * updateBullets ()//Actualizacion de balas/
 {
     int i; //indice
     //dcoord_t coordenadas;

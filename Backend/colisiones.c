@@ -57,21 +57,61 @@ void check_bala (const bala_t* bala, int n /*, barrera_t* barrera, int b */)
 }
 
 
-//Puedo impactar contra el final del mapa, contra un alien, contra una barrera, contra otra bala o contra el jugador
-void check_colisiones(const bala_t* bala, int i)
+
+//Puedo impactar contra el final del mapa, contra un alien, contra una barrera, contra otra bala (proyectil) o contra el jugador
+void check_colisiones(const alien_t* alien, const bala_t* bala, int i)
 {
+	int colition_flag = 0;	//Si el proyectil ya colisionó, entonces se desactiva y se concluye el análisis
+	int j;					//Índice del objeto contra el que podría colisionar
+
 	//Esto ya lo chequea pipe pero #programaciónALaDefensiva
+	//Para este caso es más prolijo poner el return de una y no usar el colition_flag.
 	switch ( (bala[i]).posicion[1] )	//Chequeo su coordenada Y
 	{	
 		//La M de MAPA indica que impactó contra el final del espacio jugable.
-		case ALTURA: desactivar_bala(bala, i, MAPA, 1); return;	//La colisión "mapa 1" es chocar contra el piso
-		case 0: desactivar_bala(bala, i, MAPA, 0); return;		//La colisión "mapa 0" es chocar contra el techo
+		case ALTURA: j=1; desactivar_bala(bala, i, MAPA, j);return;	//La colisión "mapa 1" es chocar contra el piso
+		case 0: j=0; desactivar_bala(bala, i, MAPA, j);		return;	//La colisión "mapa 0" es chocar contra el techo
 		default: break;
-	}	//Lo hice así para respetar la convención de que nuestro display tiene el eje Y apuntando para abajo
+	}	//Los índices respetan la convención de que nuestro display tiene el eje Y apuntando para abajo
+		//Otra opción es analizar que el hitbox coincida con el límite del mapa
 
 
-	//Chequeo si colisionó contra un alien (ya terminé el diagrama de flujo)
-	for 
+	//Chequeo si colisionó contra un alien
+	float pos_x = (bala[i]).posicion[0];	//Coordenadas de la bala
+	float pos_y = (bala[i]).posicion[1];
+	float alien_x;							//Coordenadas del alien
+	float alien_y;
+
+	float ancho_bala = bala[i].hitbox[0];	//Tamaño de la bala
+	float alto_bala  = bala[i].hitbox[1];
+	float ancho_alien;						//Tamaño del alien
+	float alto_alien;		
+
+
+	//Recordar que el alien n tiene índice j=n-1
+	for ( j = 0 ; (j < n) && (colition_flag == 0) ; j++ )
+	{	
+		//Si el alien está activo, analizo:
+		if (alien[j].dibujo != NULL )
+		{
+			//Determino la posición del alien en cuestión
+			alien_x = alien[j].posicion[0];
+			alien_y = alien[j].posicion[1];
+
+			//Determino el tamaño del alien en cuestión
+			ancho_alien = alien[j].hitbox[0];
+			alto_alien  = alien[j].hitbox[1];
+			//Si todos los aliens tuvieran el mismo tamaño, eso podría hacerse una sola vez al principio.
+
+			//Con las dimensiones de cada objeto, veo si sus hitboxes se intersecan
+			if ( colisiona_hitbox(pos_x,pos_y,ancho_bala,alto_bala,alien_x,alien_y,ancho_alien,alto_alien) )
+			{	//colisiona_hitbox devuelve 1 si hay colisión, y 0 si no la hay.
+				
+				colition_flag = 1;
+				desactivar_bala(bala, i, ALIEN, j);
+			}
+		}
+	}
 
 	//Chequeo si colisionó contra una barrera 
 	/*Acá podría tener en cuenta lo de encadenar barreras para hacer una barrera compuesta sin necesidad
@@ -99,28 +139,106 @@ void check_colisiones(const bala_t* bala, int i)
 //Dibujo a NULL, coordenada (0,0) y actualizar el campo "colisiones"
 //La j es el índice del objeto contra el que chocó
 //La i es el índice de la bala o proyectil que estamos analizando (le digo proyectil así reservo la "b" para "barrera")
-void desactivar_bala (const bala_t* bala, int i, char impacto, int j)
+void desactivar_bala ( bala_t* bala, int i, char impacto, int j)
 {
-	//El campo
+	//Indico contra qué impactó...
 	switch (impacto)
 	{
-		case 'M': (bala[i]).colisiones = OBJETO(MAPA,j);		break;	//Impactó contra el final del Mapa
-		case 'A': (bala[i]).colisiones = OBJETO(ALIEN,j);		break;	//Impactó contra un Alien
-		case 'B': (bala[i]).colisiones = OBJETO(BARRERA,j);		break;	//Impactó contra una Barrera
-		case 'J': (bala[i]).colisiones = OBJETO(JUGADOR,j);		break;	//Impactó contra otra el Jugador
-		case 'P': (bala[i]).colisiones = OBJETO(PROYECTIL,j);	//La bala i impactó contra la jota y viceversa
-				  (bala[j]).colisiones = OBJETO(PROYECTIL,i);	break;	//Impactó contra otro Proyectil
+		case 'M': bala[i].colisiones = OBJETO(MAPA,j);		break;	//Impactó contra el final del Mapa
+		case 'A': bala[i].colisiones = OBJETO(ALIEN,j);		break;	//Impactó contra un Alien
+		case 'B': bala[i].colisiones = OBJETO(BARRERA,j);	break;	//Impactó contra una Barrera
+		case 'J': bala[i].colisiones = OBJETO(JUGADOR,j);	break;	//Impactó contra otra el Jugador
+		case 'P': bala[i].colisiones = OBJETO(PROYECTIL,j);	//La bala i impactó contra la jota y viceversa
+				  bala[i].colisiones = OBJETO(PROYECTIL,i);	break;	//Impactó contra otro Proyectil
 		default: break;
 	}
 
-	(bala[i]).dibujo = NULL;
-	(bala[i]).posicion[0] = 0;
-	(bala[i]).posicion[1] = 0;
+	//...y la desactivo.
+	bala[i].dibujo = NULL;
+	bala[i].posicion[0] = 0;
+	bala[i].posicion[1] = 0;
 
-	if ( *(bala[i]).colisiones = OBJETO(PROYECTIL,j) )
+
+	//Si dos proyectiles chocaron entre sí, tengo que asegurarme de que ambos hayan sido desactivados.
+	if ( (bala[i]).colisiones = OBJETO(PROYECTIL,j) )
 	{
 		//desactivar también la otra bala (tengo que autorreferenciar a la función)
 	}
 
 	return;
+}
+
+
+
+int colisiona_hitbox(float x1, float y1, float ancho1, float alto1, float x2, float y2, float ancho2, float alto2)
+{	//Coloco la coordenada del objeto en el centro del hitbox!!!
+
+	int colition_flag = 0;	//Si el los hitboxes de ambos objetos se superponen, entonces se activa.
+
+	//Busco los extremos en el intervalo Y de cada objeto para ver si se intersecan. 
+	float max1 = y1+alto1/2;
+	float min1 = y1-alto1/2;
+	float max2 = y2+alto2/2;
+	float min2 = y2-alto2/2;
+
+	//Analizar primero los intervalos Y ahorra recursos, ya que es menos normal que se intersequen sin superponer los hitbox.
+
+	colition_flag = intersection(max1,min1,max2,min2);	//Intersection me devuelve 1 (verdadero) si se intersecan.
+	
+
+	//Si los intervalos Y se intersecan, analizo los intervalos X.
+	if (colition_flag)	
+	{
+		max1 = x1+ancho1/2;
+		min1 = x1-ancho1/2;
+		max2 = x2+ancho2/2;
+		min2 = x2-ancho2/2;
+
+		colition_flag = intersection(max1,min1,max2,min2);	//Me molesta tanto no poder poner tildes, que los escribo en inglés JAJAJA
+	}
+
+	//Si ambos intervalos (X e Y) se intersecan, significa que sus hitboxes se superponen, entonces devuelvo 1. Sino, devuelvo 0.
+	return colition_flag;
+}
+
+
+//Me devuelve 1 (verdadero) si los intervalos se intersecan.
+int intersection (float max1, float min1, float max2, float min2)
+{
+	/*Que los intervalos se intersequen significa
+	que uno está dentro del otro o que uno de sus
+	extremos está encerrado por los del otro*/
+
+	int intersection_flag = 0;
+	
+	//Les puse números romanos para que no piensen que están relacionadas al hitbox 1 o 2. Sólo son vars auxiliares.
+	float auxi;
+	float auxii;
+	float auxiii;
+	float auxvi;
+
+	//El signo de la diferencia me indica de que lado está un punto respecto del otro.
+	/*EJEMPLO: El 2 está a la izquierda del 3 porque 2-3 es negativo.
+	El 3 está a la derecha del 2 porque 3-2 es positivo*/
+
+	//max1 está encerrado por los extremos max2 y min2?
+	auxi = max1-max2;
+	auxii = max1-min2;
+	//min1 está encerrado por los extremos max2 y min2?
+	auxiii = min1-max2;
+	auxvi = min1-min2;
+	
+	/*Observen que si min1 está entre max2 y min2 es porque max2 está entre min1 y max1,
+	y así. Es decir, ya cubrimos todos los casos de intersección.
+	Solo falta considerar el caso en que el intervalo 2 sea subconjunto del 1, que ya
+	está contemplado directamente en el if en la parte de "auxvi*auxi<=0".
+	Si no me creen, hagan un dibujo en una hoja jajajaja */
+
+	//Si tienen distinto signo o si son cero es porque hubo intersección en al menos un punto.
+	if ( (auxi*auxii<=0) || (auxiii*auxvi<=0) || (auxvi*auxi<=0) ) 
+	{
+		intersection_flag = 1; 
+	}
+
+	return intersection_flag;
 }

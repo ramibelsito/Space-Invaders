@@ -3,9 +3,10 @@
 #define n 100   //Cantidad máxima de aliens que pueden haber
 #define m 15	//Cantidad máxima de trozos de barreras que pueden haber
 
-//posicion[2] = {0,0} y dibujo = NULL significa que está DESACTIVADO
+typedef bool int;	//Parece que esto está mal escrito, CHEQUEAR!
+#define TRUE 1
+#define FALSE 0 
 
-//typedef bool int; 
 #define ALTURA 16	//Esto va a variar dependiendo del display (es para ver si la bala chocó contra el "piso")
 
 /*Recibo el nombre del objeto contra el que colisionó y el índice que lo identifica.
@@ -17,9 +18,14 @@ Por ejemplo, ALIEN3 se carga en el struct como (int)('A'+3) */
 #define JUGADOR 'J'
 #define PROYECTIL 'P'
 //OBS: Es irrelevante el índice del jugador y el mapa es 0 si es techo y sino piso (como en el display)
+
+
+//posicion[2] = {0,0} y dibujo = NULL significa que está DESACTIVADO
+
 typedef struct bala
 {
 	float posicion[2];	//Coordenadas en el display
+	float hitbox[2];	//Alto y ancho del objeto (tomamos hitboxes rectangulares)
 	int velocidad;		//Rapidez de la bala
 	int sentido;		//La bala se dispara hacia arriba (jugador) o hacia abajo (aliens).
 	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
@@ -29,18 +35,18 @@ typedef struct bala
 typedef struct alien
 {
 	float posicion[2];	//Coordenadas en el display
+	float hitbox[2];	//Alto y ancho del objeto (tomamos hitboxes rectangulares)
 	int vida;			//Cantidad de golpes que resiste
 	int velocidad;		//Algunos aliens se desplazan más rápido que otros
 	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
-	int hitbox;			//Tamaño del objeto (tener en cuenta para calcular las colisiones).
 } alien_t;
 
 typedef struct barrera
 {
 	float posicion[2];	//Coordenadas en el display
+	float hitbox[2];	//Alto y ancho del objeto (tomamos hitboxes rectangulares)
 	int vida;			//Cantidad de golpes que resiste
 	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
-	int hitbox;			//Tamaño del objeto (tener en cuenta para calcular las colisiones).
 	void* cadena;		//Indica la posición de el siguiente "pedazo" que pertenece a la misma barrera. ***
 } barrera_t;
 /*
