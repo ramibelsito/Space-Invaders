@@ -27,6 +27,8 @@ pasándole trescientas mil cosas a cada función todo el tiempo. Por ahora voy a
 de evitarlo igual, para no hacer tanto mamarracho, pero me lo anoto porque puede
 llegar a ser útil.
 */
+//Al final sigo sin hacer eso. No lo vi necesario todavía.
+
 int main (void)	//main de testeo
 {
 	//OBS: Si hay n aliens, hay n+1 balas. Una para cada alien más otra para el jugador.
@@ -158,6 +160,14 @@ void desactivar_bala ( bala_t* bala, int i, char impacto, int j)
 	bala[i].posicion[0] = 0;
 	bala[i].posicion[1] = 0;
 
+	/* Podría hacer lo de switch impacto también para el objeto contra el que impactó. 
+	Creo que así sería más fácil hacer el análisis posterior (bajarle vida, etc), ya 
+	que sino se nos podría escapar algún análisis posterior al impacto por culpa de 
+	que un thread se adelante al otro. Por ejemplo, si la bala se vuelve a disparar 
+	casi inmediatamente después de haber sido desactivada, el thread que mira si una 
+	bala desactivada tiene algo cargado en el campo de colisiones, no llegaría a verla 
+	a tiempo. */
+
 
 	//Si dos proyectiles chocaron entre sí, tengo que asegurarme de que ambos hayan sido desactivados.
 	if ( (bala[i]).colisiones = OBJETO(PROYECTIL,j) )
@@ -169,11 +179,11 @@ void desactivar_bala ( bala_t* bala, int i, char impacto, int j)
 }
 
 
-
+//Me devuelve 1 si los objetos se superponen (chocan). Ya fue testeada.
 int colisiona_hitbox(float x1, float y1, float ancho1, float alto1, float x2, float y2, float ancho2, float alto2)
 {	//Coloco la coordenada del objeto en el centro del hitbox!!!
 
-	int colition_flag = 0;	//Si el los hitboxes de ambos objetos se superponen, entonces se activa.
+	int colition_flag = 0;	//Si los hitboxes de ambos objetos se superponen, entonces se activa.
 
 	//Busco los extremos en el intervalo Y de cada objeto para ver si se intersecan. 
 	float max1 = y1+alto1/2;
@@ -194,7 +204,7 @@ int colisiona_hitbox(float x1, float y1, float ancho1, float alto1, float x2, fl
 		max2 = x2+ancho2/2;
 		min2 = x2-ancho2/2;
 
-		colition_flag = intersection(max1,min1,max2,min2);	//Me molesta tanto no poder poner tildes, que los escribo en inglés JAJAJA
+		colition_flag = intersection(max1,min1,max2,min2);	//Me molesta tanto no poder poner tildes, que escribo en inglés JAJAJA
 	}
 
 	//Si ambos intervalos (X e Y) se intersecan, significa que sus hitboxes se superponen, entonces devuelvo 1. Sino, devuelvo 0.
@@ -241,4 +251,4 @@ int intersection (float max1, float min1, float max2, float min2)
 	}
 
 	return intersection_flag;
-}
+}	//Ya está testeada 	

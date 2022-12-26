@@ -1,4 +1,4 @@
-#include <stdio.h>
+//#ifndef
 
 #define n 100   //Cantidad máxima de aliens que pueden haber
 #define m 15	//Cantidad máxima de trozos de barreras que pueden haber
@@ -31,6 +31,9 @@ typedef struct bala
 	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
 	int colisiones;		//Acá informamos cuál fue la última colisión (lo revisamos si está inactiva)
 } bala_t;
+
+/*Estoy pensando que evitaríamos desfazajes si el int colisiones estuviera
+en la estructura contra la que la bala colsionó y no en la bala*/
 
 typedef struct alien
 {
@@ -70,3 +73,15 @@ typedef struct barrera
 */
 /*es posible que haya pensado todo eso al pedo porque se resuelve súper fácil de otra manera? Sí.
 Estoy súper ilusionado con mi idea? También. Elijo creer... */
+
+//#endif
+
+
+#include <stdio.h>
+
+//Me devuelve 1 (verdadero) si los intervalos se intersecan.
+int intersection (float max1, float min1, float max2, float min2);
+
+//Me devuelve 1 (verdadero) si los intervalos se intersecan. El par (x,y) está en el centro del hitbox.
+int colisiona_hitbox(float x1, float y1, float ancho1, float alto1, float x2, float y2, float ancho2, float alto2);
+//Recibo las coordenadas y dimensiones de dos objetos para ver si colisionan
