@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Dec 24 18:00:09 2022
+# Make data base, printed on Fri Dec 30 15:46:19 2022
 
 # Variables
 
@@ -39,7 +41,7 @@ QT_ACCESSIBILITY = 1
 # environment
 SNAP_INSTANCE_NAME = code
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/114/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/116/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -55,11 +57,11 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/jiborjas/.config/Code/CachedData/5235c6bb189b60b01b1f49062f4ffa42384f8c91
+VSCODE_CODE_CACHE_PATH = /home/jiborjas/.config/Code/CachedData/e8a3071ea4344d9d48ef8a4df2c097372b0c5161
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.LX6TX1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.D1TRX1
 # default
 .LOADED := 
 # default
@@ -95,7 +97,7 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 3020
+VSCODE_PID = 3416
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -103,7 +105,7 @@ XDG_SESSION_TYPE = wayland
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
-SESSION_MANAGER = local/jiborjas-VirtualBox:@/tmp/.ICE-unix/2025,unix/jiborjas-VirtualBox:/tmp/.ICE-unix/2025
+SESSION_MANAGER = local/jiborjas-VirtualBox:@/tmp/.ICE-unix/1963,unix/jiborjas-VirtualBox:/tmp/.ICE-unix/1963
 # automatic
 *F = $(notdir $*)
 # environment
@@ -149,11 +151,11 @@ SNAP_USER_COMMON = /home/jiborjas/snap/code/common
 # environment
 LC_TIME = es_AR.UTF-8
 # environment
-SNAP = /snap/code/114
+SNAP = /snap/code/116
 # environment
-INVOCATION_ID = fd64cba2451f4e1c93bb68efd0549960
+INVOCATION_ID = b2cf73648e8b4ae79facc97854a633cf
 # environment
-SNAP_REVISION = 114
+SNAP_REVISION = 116
 # environment
 SNAP_REAL_HOME = /home/jiborjas
 # environment
@@ -187,7 +189,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2076
+SYSTEMD_EXEC_PID = 1987
 # environment
 DISPLAY = :0
 # environment
@@ -197,17 +199,17 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-SNAP_DATA = /var/snap/code/114
+SNAP_DATA = /var/snap/code/116
 # environment
 SNAP_CONTEXT = JHocA82mxBxJ-T7c3XyqJpyEKnGwAye2wQvZOJDQ4PHs18mbDb_4
 # environment
-MANAGERPID = 1884
+MANAGERPID = 1825
 # environment
 LC_MEASUREMENT = es_AR.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2936
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3369
 # environment
-_ = /snap/code/114/usr/share/code/code
+_ = /snap/code/116/usr/share/code/code
 # environment
 LC_PAPER = es_AR.UTF-8
 # environment
@@ -215,7 +217,7 @@ XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/jiborjas/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:25223
+JOURNAL_STREAM = 8:28221
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -227,11 +229,11 @@ QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-da8f049e-1.74.0-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-da8f049e-1.74.2-main.sock
 # environment
 SNAP_NAME = code
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/114/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/116/usr/share/glib-2.0/schemas
 # environment
 IM_CONFIG_PHASE = 1
 # default
@@ -239,7 +241,7 @@ IM_CONFIG_PHASE = 1
 # automatic
 <F = $(notdir $<)
 # environment
-SNAP_VERSION = 5235c6bb
+SNAP_VERSION = e8a3071e
 # default
 SUFFIXES := 
 # environment
@@ -251,7 +253,7 @@ SNAP_COMMON = /var/snap/code/common
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
 # environment
-SNAP_USER_DATA = /home/jiborjas/snap/code/114
+SNAP_USER_DATA = /home/jiborjas/snap/code/116
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -280,8 +282,6 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 # Files
 
  
-make: *** No rule to make target 'all'.  Stop.
-
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
@@ -316,6 +316,6 @@ makefile:
 # strcache performance: lookups = 19 / hit rate = 21%
 # hash-table stats:
 # Load=15/8192=0%, Rehash=0, Collisions=0/19=0%
-# Finished Make data base on Sat Dec 24 18:00:10 2022
+# Finished Make data base on Fri Dec 30 15:46:19 2022
 
  

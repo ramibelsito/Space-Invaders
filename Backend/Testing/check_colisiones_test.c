@@ -1,73 +1,163 @@
-#include "colisiones.h"
-/*
-Quick reminder:
-Este thread solo se encarga de leer la info de los disparos que ya fue actualizada por 
-otro thread y los desactiva si es necesario, informando contra qué colisionó. O sea,
-acá no se realiza el desplazamiento de los objetos, solo se chequea si están colisio-
-nando en un determinado instante.
-De ser así, se desactiva la bala, se indica qué objetos colisionaron entre sí y
-***actualiza la info de los objetos que pierden vida, etc al colisionar***
-(eso último todavía no fue programado)
-*/
+//Si funciona esto ya estamos ahí nomás
 
-//Recordar: posicion[2] = {0,0} y dibujo = NULL significa que está DESACTIVADO
+/*Recién se me acaba de ocurrir que en vez de copiar todo lo ya testeado en cada test,
+podría compilar más de un .c para generar el ejecutable y listo bruh jajajaj */
 
-/*Todavía no tengo muy claro cómo meter esto en un thread así que primero voy a centrarme en hacer 
-que funcione la lógica de lo que quiero hacer y después lo voy a meter en un thread.*/
+// #Datazo: ctrl+A = seleccionar todo B)
 
-/*YA ESTÁ LISTO PARA SER TESTEADO EN UN THREAD*/
-/*Por ahora sólo está escrito para chequear las colisiones de una bala contra un alien.
-Como ya realiza todo el análisis, antes de generalizarlo a más casos, quiero chequear
-que éste código funcione en un thread, ya que los otros casos son muy parecidos al ya
-hecho.
-Otro detalle es que no me percaté de hacer una distinción entre el origen de las balas,
-o sea, una bala de un alien podría matar a otro alien. 
-No creo que sea un problema si sólamente dispara la primer fila de aliens, ya que en ese
-caso sería súper raro que se disparen entre sí y hasta podría ser una buena estrategia.
-Tipo, pegarle siempre a una misma columna de aliens para que el más externo de dicha 
-columna esté tan alto respecto al resto que termine disparándole a los demás aliens,
-no sé si me explico.
-Resumen, si solo dispara el alien más cercano al jugador en cada fila, entonces tupper,
-tupper-fecto. Sino, lo cambio.*/
+//Arranco copiando la info del .h
 
-int main (void)
+#define n 100   //Cantidad máxima de aliens que pueden haber
+#define m 15	//Cantidad máxima de barreras que pueden haber
+
+//Esto va a variar dependiendo del display
+#define Y_MAX 16
+#define X_MAX 16
+
+//Esto por las dudas, ni idea
+#define TRUE 1
+#define FALSE 0 
+
+
+/*Recibo el nombre del objeto contra el que colisionó y el índice que lo identifica.
+Por ejemplo, ALIEN3 se carga en el struct como (int)('A'+3) */
+#define OBJETO(X,Y) ( (int) ( (X)+(Y) ) )
+#define ALIEN 'A'
+#define BARRERA 'B'
+#define MAPA 'M'
+#define JUGADOR 'J'
+#define PROYECTIL 'P'
+//OBS: Es irrelevante el índice del jugador, y el mapa es 0 si es techo y sino piso (como en el display)
+
+
+//posicion[2] = {0,0} y dibujo = NULL significa que está DESACTIVADO
+
+typedef struct bala
 {
-	//OBS: Si hay n aliens, hay n+1 balas. Una para cada alien más otra para el jugador.
-	//Recordar que cada alien y cada jugador no puede tener más de una bala activa simultáneamente.
+	float posicion[2];	//Coordenadas en el display
+	float hitbox[2];	//Ancho y alto del objeto, respectivamente (tomamos hitboxes rectangulares)
+	int velocidad;		//Rapidez de la bala
+	int sentido;		//La bala se dispara hacia arriba (jugador) o hacia abajo (aliens).
+	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
+	int colisiones;		//Acá vemos a qué le dio (lo revisamos si está inactiva)
+} bala_t;
+
+/*Evitamos desfazajes si el int colisiones está en el 
+objeto contra el que la bala colisionó y no en la bala*/
+
+typedef struct alien
+{
+	float posicion[2];	//Coordenadas en el display
+	float hitbox[2];	//Ancho y alto del objeto, respectivamente (tomamos hitboxes rectangulares)
+	int vida;			//Cantidad de golpes que resiste
+	int velocidad;		//Algunos aliens se desplazan más rápido que otros
+	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
+	int colisiones;		//Acá informamos cuál fue la última colisión (ejemplo: bala i le pegó y todavía no le bajamos la vida)
+} alien_t;
+
+typedef struct barrera
+{
+	float posicion[2];	//Coordenadas en el display
+	float hitbox[2];	//Ancho y alto del objeto, respectivamente (tomamos hitboxes rectangulares)
+	int vida;			//Cantidad de golpes que resiste
+	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
+	int colisiones;		//Acá informamos cuál fue la última colisión (ejemplo: bala i le pegó y todavía no le bajamos la vida)
+} barrera_t;
+
+typedef struct jugador
+{
+	float posicion[2];	//Coordenadas en el display
+	float hitbox[2];	//Ancho y alto del objeto, respectivamente (tomamos hitboxes rectangulares)
+	int vida;			//Cantidad de golpes que resiste
+	int velocidad;		//A lo mejor varía en función del nivel
+	void* dibujo;		//Dirección de memoria en la que se encuentra la imagen del objeto
+	int colisiones;		//Acá informamos cuál fue la última colisión (ejemplo: bala i le pegó y todavía no le bajamos la vida)
+} jugador_t;
+
+
+#include <stdio.h>
+
+//Me devuelve 1 (verdadero) si los intervalos se intersecan.
+int intersection (float max1, float min1, float max2, float min2);
+
+//Me devuelve 1 (verdadero) si los hitbox se superponen. El par (x,y) está en el centro del hitbox.
+int colisiona_hitbox(float x1, float y1, float ancho1, float alto1, float x2, float y2, float ancho2, float alto2);
+//Recibo las coordenadas y dimensiones de dos objetos para ver si colisionan
+
+//La j es el índice del objeto contra el que chocó la bala
+//La i es el índice de la bala que estamos desactivando
+//Impacto es el char en mayúscula del objeto contra el que chocó la bala. Les sugiero usar los defines (#define ALIEN 'A')
+//posicion[2] = {0,0} y dibujo = NULL significa que está DESACTIVADO. También actualiza los datos de la colisión.
+void desactivar_bala ( alien_t* alien, barrera_t* barrera, jugador_t* jugador, bala_t* bala, int i, char impacto, int j);
+
+//Me devuelve 1 (verdadero) si la bala en cuestión impactó con otro objeto. Sino, 0 (falso).
+int check_colisiones(alien_t* alien, barrera_t* barrera, jugador_t* jugador, bala_t* bala, int i);
+//El índice i indica cuál bala está siendo chequeada. Lo demás son punteros a la info necesaria (ver nombres)
+
+
+
+int main (void)	//Main de testeo
+{
+	int i,j;	//Índices
 	alien_t aliens[n];
-	bala_t balas[n+1];
+	bala_t balas[n+1];	//El de los aliens más el del jugador.
 	barrera_t barreras[m];
 	jugador_t jugador;
+	
 
-	int play = 1;
+	/*Voy a crear una bala y un alien que estén en colisión, pero en vez de mandar únicamente
+	el alien en cuestión, voy a mandar todo el array y ver si la función lo encuentra y 
+	hace todo lo que tiene que hacer.
+	Después voy a hacer lo mismo con la otra función que falta chequear, a ver si también
+	encuentra la bala por su propia cuenta.*/
 
-	/*Ponele que esto es lo que va adentro del thread.
-	Un while que depende de una variable que no controla.
-	La variable play la debería controlar el que maneja
-	el tema del menú y la pausa*/
-	while (play) {check_bala(aliens, barreras, &jugador, balas);}
+	i=n-10; j=n-1;
+
+	aliens[j].posicion[0]=500;	aliens[j].posicion[1]=1500;	//Uso el último alien para ver si mira todos
+	aliens[j].hitbox[0]=100;	aliens[j].hitbox[1]=300;
+	
+	balas[i].posicion[0]=400;	balas[i].posicion[1]=1600;	//Uso una bala cualquiera
+	balas[i].hitbox[0]=200;		balas[i].hitbox[1]=50;
+
+	balas[i].dibujo=0x1111;		aliens[j].dibujo=0xafd;		//Les asigno un "dibujo" (porque están activos)
+	
+	printf("%d\n", check_colisiones(aliens, barreras, &jugador, balas, i) );				//Debería colisionar
+	printf("%f  %f  %p\n", balas[i].posicion[0], balas[i].posicion[1], balas[i].dibujo);	//Debería estar desactivado
+	printf("%f  %f  %p\n", aliens[j].posicion[0], aliens[j].posicion[1], aliens[j].dibujo);	//No debería estar desactivado
+
+	//Chequeo que esté cargada la colisión
+	if ( (balas[i].colisiones == OBJETO(ALIEN,j)) && (aliens[j].colisiones == OBJETO(PROYECTIL,i)) )
+	{
+		printf("Todo 0k. Diushtax wazouski 8 mil porciento tres estrellas el que no salta es holandés, francés, inglés, lo que se te cante\n");
+	}	//Ayuda :(
+
+
+
+	//Ahora chequeo que funcione si NO colisiona
+
+	balas[i].colisiones = 0;	aliens[j].colisiones = 0;	//Limpio el campo de colisión
+
+	aliens[j].posicion[0]=500;	aliens[j].posicion[1]=1400;	//Uso el último alien para ver si mira todos
+	aliens[j].hitbox[0]=100;	aliens[j].hitbox[1]=300;
+	
+	balas[i].posicion[0]=400;	balas[i].posicion[1]=1600;	//Uso una bala cualquiera
+	balas[i].hitbox[0]=200;		balas[i].hitbox[1]=50;
+
+	balas[i].dibujo=0x1111;		aliens[j].dibujo=0xafd;		//Les asigno un "dibujo" (porque están activos)
+	
+	printf("%d\n", check_colisiones(aliens, barreras, &jugador, balas, i) );				//No debería colisionar
+	printf("%f  %f  %p\n", balas[i].posicion[0], balas[i].posicion[1], balas[i].dibujo);	//No debería estar desactivado
+	printf("%f  %f  %p\n", aliens[j].posicion[0], aliens[j].posicion[1], aliens[j].dibujo);	//No debería estar desactivado
+
+
+	//Chequeo que siga limpio el campo de colisión (porque no colisionó con nada)
+	if ( (balas[i].colisiones == 0) && (aliens[j].colisiones == 0) )
+	{
+		printf("Todo 0k. Diushtax wazouski 8 mil porciento tres estrellas el que no salta es holandés, francés, inglés, lo que se te cante\n");
+	}	//Ayuda :(
 
 	return 0;
-}
-
-
-
-//hay n cantidad de aliens, por ende, n+1 cantidad de balas (tanto activas como inactivas)
-//Necesita los punteros a la info de algunos de los objetos contra los que podría colisionar.
-void check_bala (alien_t* alien, barrera_t* barrera, jugador_t* jugador, bala_t* bala)
-{
-	//Recordar que la bala n+1 tiene índice n en el arreglo (la primera tiene índice 0, no 1)
-	for  ( int i = 0 ; i < n+1 ; i++ )
-	{
-		if ( (bala [i]).dibujo != NULL )
-		{
-			check_colisiones(alien, barrera, jugador, bala, i);
-		}
-	}
-
-	return;
-}
-
+}	//Llegó la hora de la verdad...		-	FUNCIONA TODO ANASHEEEEEEEEE	-
 
 
 //Esto es una validación así que tiene más de un return. En concreto, uno para cada caso.
@@ -177,8 +267,12 @@ int check_colisiones(alien_t* alien, barrera_t* barrera, jugador_t* jugador, bal
 	
 	
 	return colition_flag;	//Si no impactó contra nada, lo informo.
+}
 
-}	//Ya fue testeada con los aliens.
+
+
+
+//De acá en adelante ya está todo testeado
 
 
 //Desactivar un proyectil significa: dibujo a NULL, coordenada (0,0) y actualizar el campo "colisiones"

@@ -1,4 +1,4 @@
-/*No quiero perder mucho tiempo testeando esto porque el peldaño que agrega es bastante trivial.
+/*No quiero perder mucho tiempo testeando esto porque el escalón que agrega es bastante trivial.
 Básicamente, si funcionó intersection debería funcionar colisiona_hitbox. Voy a hacer una o dos
 pruebas por las dudas nomás*/
 
